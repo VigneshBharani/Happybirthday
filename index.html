@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, My Love ❤️</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: "Poppins", Arial, sans-serif;
+        background: #09000f;
+        color: white;
+        overflow-x: hidden;
+    }
+
+    /* =========================
+       LOADING SCREEN
+    ========================== */
+
+    #loader {
+        position: fixed;
+        inset: 0;
+        background: #09000f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 9999;
+        transition: opacity 1s ease;
+    }
+
+    #loader h1 {
+        color: #ff6b9d;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .loader-heart {
+        font-size: 55px;
+        animation: heartbeat 1s infinite;
+    }
+
+    @keyframes heartbeat {
+        0%,100% { transform: scale(1); }
+        50% { transform: scale(1.25); }
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        background:
+            linear-gradient(rgba(10,0,20,.45), rgba(10,0,20,.85)),
+            url("images/hero.jpg") center/cover no-repeat;
+    }
+
+    .hero-content {
+        z-index: 2;
+        padding: 30px;
+        animation: fadeUp 2s ease;
+    }
+
+    .small-title {
+        color: #ff9fc1;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .hero h1 {
+        font-family: Georgia, serif;
+        font-size: clamp(3rem, 10vw, 7rem);
+        color: #fff;
+        text-shadow: 0 0 30px #ff397d;
+    }
+
+    .hero h1 span {
+        color: #ff5f91;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        color: #ffe6ee;
+    }
+
+    .start-button {
+        margin-top: 35px;
+        display: inline-block;
+        padding: 15px 35px;
+        border-radius: 50px;
+        background: linear-gradient(45deg,#ff3f81,#ff7eac);
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 0 30px rgba(255,70,130,.6);
+        transition: .3s;
+    }
+
+    .start-button:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 50px rgba(255,70,130,.9);
+    }
+
+    /* Floating hearts */
+
+    .heart {
+        position: absolute;
+        bottom: -50px;
+        color: #ff4f91;
+        font-size: 25px;
+        animation: floatHeart linear infinite;
+        opacity: .7;
+    }
+
+    @keyframes floatHeart {
+        from {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+
+        20% {
+            opacity: .8;
+        }
+
+        to {
+            transform: translateY(-110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================== */
+
+    section {
+        padding: 100px 7%;
+        position: relative;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+        font-family: Georgia, serif;
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        color: #ff78a8;
+    }
+
+    .section-title p {
+        color: #cdbac7;
+        margin-top: 10px;
+    }
+
+    /* =========================
+       LETTER
+    ========================== */
+
+    .letter-section {
+        background:
+            radial-gradient(circle at top left, #3b092f, transparent 40%),
+            radial-gradient(circle at bottom right, #180033, transparent 40%);
+    }
+
+    .letter {
+        max-width: 850px;
+        margin: auto;
+        padding: 50px;
+        border: 1px solid rgba(255,255,255,.15);
+        background: rgba(255,255,255,.05);
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        box-shadow: 0 0 60px rgba(255,40,120,.12);
+        line-height: 2;
+        font-size: 1.05rem;
+    }
+
+    .letter .signature {
+        margin-top: 30px;
+        text-align: right;
+        color: #ff80ac;
+        font-family: cursive;
+        font-size: 1.5rem;
+    }
+
+    /* =========================
+       PHOTO GALLERY
+    ========================== */
+
+    .gallery {
+        columns: 4 220px;
+        column-gap: 15px;
+    }
+
+    .photo {
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 18px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        break-inside: avoid;
+        box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    }
+
+    .photo img {
+        width: 100%;
+        display: block;
+        transition: transform .5s;
+    }
+
+    .photo:hover img {
+        transform: scale(1.08);
+    }
+
+    .photo::after {
+        content: "❤️";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        background: rgba(255,40,100,.25);
+        opacity: 0;
+        transition: .3s;
+    }
+
+    .photo:hover::after {
+        opacity: 1;
+    }
+
+    /* =========================
+       VIDEO SECTION
+    ========================== */
+
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+        gap: 25px;
+    }
+
+    .video-card {
+        background: rgba(255,255,255,.05);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,.1);
+        transition: .4s;
+    }
+
+    .video-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(255,40,120,.2);
+    }
+
+    video {
+        width: 100%;
+        display: block;
+        background: black;
+    }
+
+    .video-card h3 {
+        padding: 18px;
+        color: #ff8eb5;
+    }
+
+    .video-card p {
+        padding: 0 18px 20px;
+        color: #bcaebb;
+    }
+
+    /* =========================
+       TIMELINE
+    ========================== */
+
+    .timeline {
+        max-width: 900px;
+        margin: auto;
+        position: relative;
+    }
+
+    .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(#ff4d8d,#8e3fff);
+    }
+
+    .timeline-item {
+        width: 50%;
+        padding: 25px 40px;
+        position: relative;
+    }
+
+    .timeline-item:nth-child(even) {
+        margin-left: 50%;
+    }
+
+    .timeline-content {
+        padding: 25px;
+        background: rgba(255,255,255,.06);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .timeline-content h3 {
+        color: #ff75a7;
+        margin-bottom: 10px;
+    }
+
+    /* =========================
+       SURPRISE
+    ========================== */
+
+    .surprise {
+        min-height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background:
+            radial-gradient(circle, #410b32, #09000f 70%);
+    }
+
+    .surprise-box {
+        max-width: 800px;
+    }
+
+    .surprise-box h2 {
+        font-family: Georgia, serif;
+        font-size: clamp(2.5rem,6vw,5rem);
+        color: #ff78a8;
+        margin-bottom: 25px;
+    }
+
+    #secretMessage {
+        display: none;
+        animation: fadeUp 1.5s ease;
+    }
+
+    .secret-text {
+        font-size: 1.25rem;
+        line-height: 2;
+        color: #ffeaf2;
+    }
+
+    .surprise-button {
+        border: none;
+        padding: 16px 35px;
+        border-radius: 50px;
+        background: #ff4e8b;
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 30px rgba(255,70,130,.5);
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+        padding: 50px 20px;
+        text-align: center;
+        color: #947d8c;
+        background: #050008;
+    }
+
+    footer span {
+        color: #ff5d98;
+    }
+
+    /* =========================
+       LIGHTBOX
+    ========================== */
+
+    #lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        background: rgba(0,0,0,.95);
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    #lightbox img {
+        max-width: 95%;
+        max-height: 90%;
+        border-radius: 15px;
+    }
+
+    #closeLightbox {
+        position: absolute;
+        top: 25px;
+        right: 35px;
+        font-size: 40px;
+        cursor: pointer;
+        color: white;
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media(max-width:700px) {
+        section {
+            padding: 70px 5%;
+        }
+
+        .letter {
+            padding: 30px 20px;
+        }
+
+        .timeline::before {
+            left: 10px;
+        }
+
+        .timeline-item,
+        .timeline-item:nth-child(even) {
+            width: 100%;
+            margin-left: 0;
+            padding-left: 35px;
+            padding-right: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+    <div class="loader-heart">❤️</div>
+    <h1>Preparing a little surprise...</h1>
+    <p>For the most beautiful person in my world</p>
+</div>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <!-- Floating hearts -->
+    <div class="heart" style="left:5%;animation-duration:8s;">❤️</div>
+    <div class="heart" style="left:15%;animation-duration:12s;">💕</div>
+    <div class="heart" style="left:25%;animation-duration:10s;">❤️</div>
+    <div class="heart" style="left:40%;animation-duration:14s;">💗</div>
+    <div class="heart" style="left:55%;animation-duration:9s;">❤️</div>
+    <div class="heart" style="left:70%;animation-duration:13s;">💕</div>
+    <div class="heart" style="left:85%;animation-duration:11s;">❤️</div>
+    <div class="heart" style="left:95%;animation-duration:15s;">💖</div>
+
+    <div class="hero-content">
+        <div class="small-title">A little surprise for you</div>
+
+        <h1>Happy Birthday,<br><span>My Love ❤️</span></h1>
+
+        <p>
+            Today isn't just your birthday...<br>
+            It's a celebration of the person who makes my world brighter.
+        </p>
+
+        <a href="#letter" class="start-button">
+            Begin Our Story ✨
+        </a>
+    </div>
+</section>
+
+
+<!-- LOVE LETTER -->
+<section class="letter-section" id="letter">
+
+    <div class="section-title">
+        <h2>A Letter For You 💌</h2>
+        <p>Something I wanted you to know...</p>
+    </div>
+
+    <div class="letter">
+
+        <p>
+            My Love,
+        </p>
+
+        <p>
+            Happy Birthday to the person who makes ordinary moments
+            feel extraordinary.
+        </p>
+
+        <p>
+            I could write a thousand words and still not completely
+            explain what you mean to me.
+        </p>
+
+        <p>
+            Every laugh, every conversation, every little memory we've
+            created has become something I treasure.
+        </p>
+
+        <p>
+            So today, I wanted to create something that keeps a few of
+            those memories together in one place.
+        </p>
+
+        <p>
+            These photos, these videos, these little moments...
+            they're pieces of our story.
+        </p>
+
+        <p>
+            And I hope this birthday reminds you of one thing:
+            <strong>you are deeply loved. ❤️</strong>
+        </p>
+
+        <div class="signature">
+            Forever yours ❤️
+        </div>
+
+    </div>
+</section>
+
+
+<!-- 30 PHOTO GALLERY -->
+<section>
+
+    <div class="section-title">
+        <h2>Our Memories 📸</h2>
+        <p>30 little pieces of happiness</p>
+    </div>
+
+    <div class="gallery">
+
+        <div class="photo"><img src="images/photo01.jpg" alt="Memory 1"></div>
+        <div class="photo"><img src="images/photo02.jpg" alt="Memory 2"></div>
+        <div class="photo"><img src="images/photo03.jpg" alt="Memory 3"></div>
+        <div class="photo"><img src="images/photo04.jpg" alt="Memory 4"></div>
+        <div class="photo"><img src="images/photo05.jpg" alt="Memory 5"></div>
+        <div class="photo"><img src="images/photo06.jpg" alt="Memory 6"></div>
+        <div class="photo"><img src="images/photo07.jpg" alt="Memory 7"></div>
+        <div class="photo"><img src="images/photo08.jpg" alt="Memory 8"></div>
+        <div class="photo"><img src="images/photo09.jpg" alt="Memory 9"></div>
+        <div class="photo"><img src="images/photo10.jpg" alt="Memory 10"></div>
+
+        <div class="photo"><img src="images/photo11.jpg" alt="Memory 11"></div>
+        <div class="photo"><img src="images/photo12.jpg" alt="Memory 12"></div>
+        <div class="photo"><img src="images/photo13.jpg" alt="Memory 13"></div>
+        <div class="photo"><img src="images/photo14.jpg" alt="Memory 14"></div>
+        <div class="photo"><img src="images/photo15.jpg" alt="Memory 15"></div>
+        <div class="photo"><img src="images/photo16.jpg" alt="Memory 16"></div>
+        <div class="photo"><img src="images/photo17.jpg" alt="Memory 17"></div>
+        <div class="photo"><img src="images/photo18.jpg" alt="Memory 18"></div>
+        <div class="photo"><img src="images/photo19.jpg" alt="Memory 19"></div>
+        <div class="photo"><img src="images/photo20.jpg" alt="Memory 20"></div>
+
+        <div class="photo"><img src="images/photo21.jpg" alt="Memory 21"></div>
+        <div class="photo"><img src="images/photo22.jpg" alt="Memory 22"></div>
+        <div class="photo"><img src="images/photo23.jpg" alt="Memory 23"></div>
+        <div class="photo"><img src="images/photo24.jpg" alt="Memory 24"></div>
+        <div class="photo"><img src="images/photo25.jpg" alt="Memory 25"></div>
+        <div class="photo"><img src="images/photo26.jpg" alt="Memory 26"></div>
+        <div class="photo"><img src="images/photo27.jpg" alt="Memory 27"></div>
+        <div class="photo"><img src="images/photo28.jpg" alt="Memory 28"></div>
+        <div class="photo"><img src="images/photo29.jpg" alt="Memory 29"></div>
+        <div class="photo"><img src="images/photo30.jpg" alt="Memory 30"></div>
+
+    </div>
+
+</section>
+
+
+<!-- 15 VIDEOS -->
+<section style="background:#0d0116;">
+
+    <div class="section-title">
+        <h2>Our Little Movies 🎬</h2>
+        <p>15 moments I never want to forget</p>
+    </div>
+
+    <div class="video-grid">
+
+        <div class="video-card">
+            <video controls poster="images/photo01.jpg">
+                <source src="videos/video01.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #01 ❤️</h3>
+            <p>One of my favorite moments with you.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo02.jpg">
+                <source src="videos/video02.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #02 💕</h3>
+            <p>A moment worth remembering.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo03.jpg">
+                <source src="videos/video03.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #03 💗</h3>
+            <p>Another beautiful chapter.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo04.jpg">
+                <source src="videos/video04.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #04 ❤️</h3>
+            <p>That smile...</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo05.jpg">
+                <source src="videos/video05.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #05 ✨</h3>
+            <p>A tiny piece of our story.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo06.jpg">
+                <source src="videos/video06.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #06 💕</h3>
+            <p>One moment, a thousand feelings.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo07.jpg">
+                <source src="videos/video07.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #07 ❤️</h3>
+            <p>Something I'll always treasure.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo08.jpg">
+                <source src="videos/video08.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #08 🌹</h3>
+            <p>Just us.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo09.jpg">
+                <source src="videos/video09.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #09 💖</h3>
+            <p>Another favorite memory.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo10.jpg">
+                <source src="videos/video10.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #10 🎀</h3>
+            <p>Because every moment matters.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo11.jpg">
+                <source src="videos/video11.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #11 ❤️</h3>
+            <p>A memory close to my heart.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo12.jpg">
+                <source src="videos/video12.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #12 💕</h3>
+            <p>Another page of our story.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo13.jpg">
+                <source src="videos/video13.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #13 🌙</h3>
+            <p>A moment I wish I could replay.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo14.jpg">
+                <source src="videos/video14.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #14 💗</h3>
+            <p>Our beautiful memories.</p>
+        </div>
+
+        <div class="video-card">
+            <video controls poster="images/photo15.jpg">
+                <source src="videos/video15.mp4" type="video/mp4">
+            </video>
+            <h3>Memory #15 ❤️</h3>
+            <p>And this is only the beginning...</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- TIMELINE -->
+<section>
+
+    <div class="section-title">
+        <h2>Our Story 🥰</h2>
+        <p>A few chapters of us</p>
+    </div>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>The Beginning 🌸</h3>
+                <p>
+                    This is where our story started.
+                    Add your first meeting or first conversation here.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>First Memory ❤️</h3>
+                <p>
+                    Write about one of your earliest favorite memories together.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>The Adventures ✈️</h3>
+                <p>
+                    Add your trips, dates, silly adventures and unforgettable days.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>Today 🎂</h3>
+                <p>
+                    And here we are, celebrating another beautiful year of you.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL SURPRISE -->
+<section class="surprise">
+
+    <div class="surprise-box">
+
+        <h2>One Last Surprise... 💝</h2>
+
+        <button class="surprise-button" onclick="showSecret()">
+            Open My Heart ❤️
+        </button>
+
+        <div id="secretMessage">
+
+            <br><br>
+
+            <p class="secret-text">
+                If I could give you one thing for your birthday,
+                it would be the ability to see yourself through my eyes.
+                <br><br>
+
+                Then you'd understand just how special you are to me.
+                <br><br>
+
+                Thank you for being you.
+                Thank you for every laugh, every memory and every moment.
+                <br><br>
+
+                I hope this is just one of many birthdays
+                we get to celebrate together.
+                <br><br>
+
+                <strong>
+                    Happy Birthday, my beautiful girl. ❤️
+                    <br>
+                    I love you more than words can say.
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    Made with <span>❤️</span> for the most special person in my world.
+    <br><br>
+    Happy Birthday 🎂
+</footer>
+
+
+<!-- IMAGE LIGHTBOX -->
+<div id="lightbox">
+    <span id="closeLightbox">&times;</span>
+    <img id="lightboxImage" src="" alt="Full size memory">
+</div>
+
+
+<script>
+
+    /* =========================
+       LOADING SCREEN
+    ========================== */
+
+    window.addEventListener("load", function() {
+
+        setTimeout(function() {
+
+            const loader = document.getElementById("loader");
+
+            loader.style.opacity = "0";
+
+            setTimeout(function() {
+                loader.style.display = "none";
+            }, 1000);
+
+        }, 1500);
+
+    });
+
+
+    /* =========================
+       SECRET MESSAGE
+    ========================== */
+
+    function showSecret() {
+
+        const message = document.getElementById("secretMessage");
+
+        message.style.display = "block";
+
+        createConfetti();
+
+    }
+
+
+    /* =========================
+       PHOTO LIGHTBOX
+    ========================== */
+
+    const photos = document.querySelectorAll(".photo img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const closeLightbox = document.getElementById("closeLightbox");
+
+    photos.forEach(function(photo) {
+
+        photo.addEventListener("click", function() {
+
+            lightbox.style.display = "flex";
+            lightboxImage.src = this.src;
+
+        });
+
+    });
+
+    closeLightbox.addEventListener("click", function() {
+        lightbox.style.display = "none";
+    });
+
+    lightbox.addEventListener("click", function(e) {
+
+        if(e.target === lightbox) {
+            lightbox.style.display = "none";
+        }
+
+    });
+
+
+    /* =========================
+       CONFETTI
+    ========================== */
+
+    function createConfetti() {
+
+        const colors = [
+            "#ff4f91",
+            "#ff8eb5",
+            "#ffffff",
+            "#ffd166",
+            "#c77dff"
+        ];
+
+        for(let i = 0; i < 120; i++) {
+
+            const confetti = document.createElement("div");
+
+            confetti.style.position = "fixed";
+            confetti.style.width = "8px";
+            confetti.style.height = "8px";
+            confetti.style.background =
+                colors[Math.floor(Math.random() * colors.length)];
+
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = "-10px";
+            confetti.style.zIndex = "99999";
+
+            confetti.style.transform =
+                "rotate(" + Math.random() * 360 + "deg)";
+
+            document.body.appendChild(confetti);
+
+            const duration =
+                2000 + Math.random() * 4000;
+
+            confetti.animate(
+                [
+                    {
+                        transform:
+                            "translateY(0) rotate(0deg)",
+                        opacity: 1
+                    },
+                    {
+                        transform:
+                            "translateY(110vh) rotate(720deg)",
+                        opacity: 0
+                    }
+                ],
+                {
+                    duration: duration,
+                    easing: "linear"
+                }
+            );
+
+            setTimeout(function() {
+                confetti.remove();
+            }, duration);
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
